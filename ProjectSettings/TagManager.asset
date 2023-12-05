@@ -3,15 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GamePiece
+  - platform
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Grabable
   - Water
   - UI
-  - 
+  - platform
   - 
   - 
   - 
