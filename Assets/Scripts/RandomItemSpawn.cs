@@ -1,29 +1,29 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+
+using UnityEngine.UI;
+
 
 public class RandomItemSpawn : MonoBehaviour
 {
+    public ScoreUI scoreUI;
     public GameObject[] itemPrefabs; // Array of prefabs to spawn
     public Transform spawnPoint; // Specific spawn point
-    public float spawnInterval = 3f; // Interval between spawns in seconds
 
-    private void Start()
+    public Button nextButton;
+
+    void Start()
     {
-        // Start spawning items
-        StartCoroutine(SpawnItems());
+        nextButton.onClick.AddListener(spawnItem);
+
     }
 
-    IEnumerator SpawnItems()
+    void spawnItem()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(spawnInterval);
-
-            // Generate a random index for the itemPrefabs array
-            int randomIndex = Random.Range(0, itemPrefabs.Length);
-
-            // Instantiate a random prefab from the array at the specific spawn point position and rotation
-            Instantiate(itemPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
-        }
+        int randomIndex = Random.Range(0, itemPrefabs.Length);
+        Instantiate(itemPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
+        scoreUI.UpdateScore(1);
     }
+
 }

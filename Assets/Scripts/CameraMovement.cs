@@ -25,20 +25,9 @@ public class CameraMovement : MonoBehaviour
     }
     private void MovePlayer()
     {
-        // Get the forward direction of the player without any vertical component
         Vector3 forwardDirection = Vector3.Scale(PlayerCamera.forward, new Vector3(1, 0, 1)).normalized;
 
-        // Calculate the movement vector based on the camera's forward direction
         Vector3 moveDirection = forwardDirection * PlayerMovementInput.z + PlayerCamera.right * PlayerMovementInput.x;
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Velocity.y = 1f;
-        }
-        else if (Input.GetKey(KeyCode.LeftShift))
-        {
-            Velocity.y = -1f;
-        }
 
         Controller.Move(moveDirection * Speed * Time.deltaTime);
         Controller.Move(Velocity * Speed * Time.deltaTime);
@@ -51,7 +40,7 @@ public class CameraMovement : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             xRot -= PlayerMouseInput.y * Sensitivity;
-            xRot = Mathf.Clamp(xRot, -90f, 90f); // Clamp the vertical rotation to prevent flipping
+            xRot = Mathf.Clamp(xRot, -90f, 90f);
 
             transform.Rotate(0f, PlayerMouseInput.x * Sensitivity, 0f);
             PlayerCamera.transform.localRotation = Quaternion.Euler(xRot, transform.rotation.eulerAngles.y, 0f);

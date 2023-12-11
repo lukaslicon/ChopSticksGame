@@ -11,8 +11,10 @@ public class LivesUI : MonoBehaviour
 {
     //looked this up. Found that using TMPro and using a textmeshprougui i could also update score this way.
     public TextMeshProUGUI pointsText;
+
     public GameObject particleEffectPrefab;
     public int points = 2;
+    public GameOverManager GameManager;
     private void Start()
     {
         UpdatePointsText();
@@ -21,6 +23,11 @@ public class LivesUI : MonoBehaviour
     {
         points += amount;
         UpdatePointsText();
+        if (points <= 0)
+        {
+            GameManager.isGameOver = true;
+        }
+
     }
     private void UpdatePointsText()
     {
@@ -33,6 +40,7 @@ public class LivesUI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("GamePiece"))
         {
+            
             PlayParticleEffect(other.transform.position); // Pass the other object's position
             other.gameObject.SetActive(false);
             UpdatePoints(-1);
