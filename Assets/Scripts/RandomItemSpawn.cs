@@ -10,6 +10,7 @@ public class RandomItemSpawn : MonoBehaviour
     public ScoreUI scoreUI;
     public GameObject[] itemPrefabs; // Array of prefabs to spawn
     public Transform spawnPoint; // Specific spawn point
+    public StartGame gameStart;
 
     public Button nextButton;
 
@@ -21,9 +22,13 @@ public class RandomItemSpawn : MonoBehaviour
 
     void spawnItem()
     {
-        int randomIndex = Random.Range(0, itemPrefabs.Length);
-        Instantiate(itemPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
-        scoreUI.UpdateScore(1);
+        if(gameStart.isStarted == true)
+        {
+            int randomIndex = Random.Range(0, itemPrefabs.Length);
+            Instantiate(itemPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
+            scoreUI.UpdateScore(1);
+        }
+
     }
 
 }
